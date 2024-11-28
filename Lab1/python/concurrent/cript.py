@@ -1,6 +1,6 @@
 import os
 import sys
-import threading
+from threading import Thread
 
 def read_passwords_from_dir(directory: str) -> dict:
     passwords = {}
@@ -34,12 +34,19 @@ def process_file_and_write(file_name: str, file_path: str, passwords: list):
     except Exception as e:
         print(f"Erro ao escrever no arquivo {file_path}: {e}")
 
-def process_passwords_serially(directory: str, passwords_by_file: dict):
+def process_passwords_concurrent(directory: str, passwords_by_file: dict):
     for file_name, passwords in passwords_by_file.items():
         file_path = os.path.join(directory, file_name)
         process_file_and_write(file_name, file_path, passwords)
 
-def 
+def process_threads(directory_path, passwords_by_file):
+    threads = []
+    thread = Thread(target=process_passwords_concurrent, args=(directory_path, passwords_by_file))
+    thread.start()
+    threads.append(thread)
+
+    for thread in threads:
+        thread.join()
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -47,12 +54,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     directory_path = sys.argv[1]
-
-    threads = []
-
-
-
     passwords_by_file = read_passwords_from_dir(directory_path)
+    process_threads(directory_path, passwords_by_file)
 
-    process_passwords_serially(directory_path, passwords_by_file)
 
