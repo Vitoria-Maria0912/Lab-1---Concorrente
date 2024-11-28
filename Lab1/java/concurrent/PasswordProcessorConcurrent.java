@@ -2,10 +2,10 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-public class PasswordProcessorSerial {
+public class PasswordProcessorConcurrent {
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.out.println("Uso: java PasswordProcessorSerial <caminho_do_diretorio>");
+            System.out.println("Uso: java PasswordProcessorConcurrent <caminho_do_diretorio>");
             return;
         }
 
@@ -17,7 +17,7 @@ public class PasswordProcessorSerial {
             return;
         }
 
-        File[] files = directory.listFiles((dir, name) -> name.endsWith(".txt"));
+        File[] files = directory.listFiles((dir, name) -> name.endsWith(""));
         if (files == null) {
             System.out.println("Erro ao listar arquivos no diretório.");
             return;

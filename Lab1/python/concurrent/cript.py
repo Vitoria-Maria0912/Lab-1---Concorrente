@@ -39,12 +39,18 @@ def process_passwords_serially(directory: str, passwords_by_file: dict):
         file_path = os.path.join(directory, file_name)
         process_file_and_write(file_name, file_path, passwords)
 
+def 
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Uso: python script.py <caminho_do_diretorio>")
         sys.exit(1)
 
     directory_path = sys.argv[1]
+
+    threads = []
+
+
 
     passwords_by_file = read_passwords_from_dir(directory_path)
 
